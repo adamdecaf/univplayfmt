@@ -50,8 +50,67 @@ entries:
 
 	for _,v := range out {
 		if !v.Equal(answer) {
-			t.Errorf("parsed example playlist doesn't match answer, parsed=%v", out)
+			t.Errorf("parsed example playlist doesn't match answer, parsed=%v", v)
 		}
+	}
+}
+
+func TestParse__Missing(t *testing.T) {
+	in := `---
+format: UPL1
+entries:
+- artist: Foo
+  title: Song
+`
+	out, err := readString(in)
+	if err != nil {
+		t.Error("error reading missing playlist")
+	}
+	if len(out) != 1 {
+		t.Errorf("expected 1 playlist")
+	}
+	answer := univplayfmt.Playlist{
+		Format: "UPL1",
+		Name: "",
+		Id: "",
+		Entries: []univplayfmt.Entry{
+			univplayfmt.Entry{
+				Artist: "Foo",
+				Title: "Song",
+			},
+		},
+	}
+	if !out[0].Equal(answer) {
+		t.Errorf("expected missing playlist to match answer, parsed=%v, answer=%v", out[0], answer)
+	}
+}
+
+func TestParse__NoEntries(t *testing.T) {
+	in := `---
+format: UPL1
+name: Favs
+id: 1
+`
+	out, err := readString(in)
+	if err != nil {
+		t.Errorf("error reading playlist with no entries key")
+	}
+	if len(out) != 1 || len(out[0].Entries) != 0 {
+		t.Errorf("We expected entries to be empty")
+	}
+
+	in = `---
+format: UPL1
+name: Favs
+id: 2
+entries:
+`
+	out, err = readString(in)
+	if err != nil {
+		t.Errorf("error reading playlist with no entries key")
+	}
+	if len(out) != 1 || len(out[0].Entries) != 0 {
+		t.Errorf("We expected entries to be empty")
 	}
 }
 

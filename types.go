@@ -6,8 +6,8 @@ import (
 
 type Playlist struct {
 	Format  string  `yaml:"format"`
-	Name    string  `yaml:"name"`
-	Id      string  `yaml:"id"`
+	Name    string  `yaml:"name,omitempty"`
+	Id      string  `yaml:"id,omitempty"`
 	Entries []Entry `yaml:"entries"`
 }
 
@@ -21,7 +21,7 @@ func (pl *Playlist) Equal(other Playlist) bool {
 type Entry struct {
 	Artist   string            `yaml:"artist"`
 	Title    string            `yaml:"title"`
-	Duration float64           `yaml:"duration"`
+	Duration float64           `yaml:"duration,omitempty"`
 	Ids      map[string]string `yaml:"ids"`
 }
 
