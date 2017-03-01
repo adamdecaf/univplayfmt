@@ -153,3 +153,16 @@ entries:
 	}
 	t.Error("multiple playlist parsing in the same file is fixed")
 }
+
+func TestParse__FileReadAndValidate(t *testing.T) {
+	pls, err := ReadFile("testdata/url1.yml")
+	if err != nil {
+		t.Errorf("error reading playlist from file, err=%v", err)
+	}
+	if len(pls) != 1 {
+		t.Errorf("expected only 1 playlist")
+	}
+	if len(pls[0].Entries) != 1 {
+		t.Errorf("expected one entry in playlist")
+	}
+}
