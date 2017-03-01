@@ -27,9 +27,12 @@ type Entry struct {
 
 // Allowed Entry ID Mappings
 const (
+	MD5      = "md5"
+	SHA1     = "sha1"
 	SHA2     = "sha2"
 	SHA3     = "sha3"
 	FILEPATH = "filepath"
+	URI      = "uri"
 
 	// AcoustID
 	ACOUSTID   = "acoustid"
