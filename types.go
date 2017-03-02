@@ -5,10 +5,10 @@ import (
 )
 
 type Playlist struct {
-	Format  string  `yaml:"format"`
-	Name    string  `yaml:"name,omitempty"`
-	Id      string  `yaml:"id,omitempty"`
-	Entries []Entry `yaml:"entries"`
+	Format  string  `json:"format"`
+	Name    string  `json:"name"`
+	Id      string  `json:"id"`
+	Entries []Entry `json:"entries"`
 }
 
 func (pl *Playlist) Equal(other Playlist) bool {
@@ -19,10 +19,13 @@ func (pl *Playlist) Equal(other Playlist) bool {
 }
 
 type Entry struct {
-	Artist   string            `yaml:"artist"`
-	Title    string            `yaml:"title"`
-	Duration float64           `yaml:"duration,omitempty"`
-	Ids      map[string]string `yaml:"ids"`
+	Artist   string            `json:"artist"`
+	Album    string            `json:"album"`
+	Title    string            `json:"title"`
+	Duration float64           `json:"duration"`
+	Start    float64           `json:"start,omitempty"`
+	End      float64           `json:"end,omitempty"`
+	Ids      map[string]string `json:"ids,omitempty"`
 }
 
 // Allowed Entry ID Mappings

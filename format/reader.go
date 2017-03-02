@@ -1,8 +1,8 @@
 package format
 
 import (
+	"encoding/json"
 	"github.com/adamdecaf/univplayfmt"
-	"gopkg.in/yaml.v2"
 	"io/ioutil"
 )
 
@@ -33,7 +33,7 @@ func readBytes(b []byte) ([]univplayfmt.Playlist, error) {
 	var pl univplayfmt.Playlist
 	playlists := make([]univplayfmt.Playlist, 0)
 
-	err := yaml.Unmarshal(b, &pl)
+	err := json.Unmarshal(b, &pl)
 	if err != nil {
 		return nil, err
 	}
