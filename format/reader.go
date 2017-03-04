@@ -30,14 +30,19 @@ func readString(s string) ([]univplayfmt.Playlist, error) {
 }
 
 func readBytes(b []byte) ([]univplayfmt.Playlist, error) {
-	var pl univplayfmt.Playlist
-	playlists := make([]univplayfmt.Playlist, 0)
-
-	err := json.Unmarshal(b, &pl)
-	if err != nil {
-		return nil, err
+	// Try reading input as an array
+	var pls []univplayfmt.Playlist
+	err := json.Unmarshal(b, &pls)
+	if err == nil {
+		return pls, nil
 	}
 
-	playlists = append(playlists, pl)
-	return playlists, nil
+	// Try reading input as single playlist
+	var pl univplayfmt.Playlist
+	err = json.Unmarshal(b, &pl)
+	if err == nil {
+		return []univplayfmt.Playlist{pl}, nil
+	}
+
+	return nil, nil
 }

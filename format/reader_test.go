@@ -5,8 +5,8 @@ import (
 	"testing"
 )
 
-func TestParse__Example(t *testing.T) {
-	in := `{
+func TestRead__Example(t *testing.T) {
+	in := `[{
     "format": "UPL1",
     "name": "Favorites",
     "id": "2b43009f-d6a6-4f00-8533-09a9a73d8b54",
@@ -23,7 +23,7 @@ func TestParse__Example(t *testing.T) {
             }
         }
     ]
-}
+}]
 `
 	out, err := readString(in)
 	if err != nil {
@@ -60,7 +60,7 @@ func TestParse__Example(t *testing.T) {
 	}
 }
 
-func TestParse__Missing(t *testing.T) {
+func TestRead__Missing(t *testing.T) {
 	in := `{
     "format": "UPL1",
     "entries": [
@@ -94,7 +94,7 @@ func TestParse__Missing(t *testing.T) {
 	}
 }
 
-func TestParse__NoEntries(t *testing.T) {
+func TestRead__NoEntries(t *testing.T) {
 	in := `{
     "format": "UPL1",
     "name": "Favorites",
@@ -125,7 +125,7 @@ func TestParse__NoEntries(t *testing.T) {
 	}
 }
 
-func TestParse__FileReadAndValidate(t *testing.T) {
+func TestRead__FileReadAndValidate(t *testing.T) {
 	pls, err := ReadFile("testdata/url1.json")
 	if err != nil {
 		t.Errorf("error reading playlist from file, err=%v", err)
