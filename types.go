@@ -6,8 +6,8 @@ import (
 
 type Playlist struct {
 	Format  string  `json:"format"`
-	Name    string  `json:"name"`
-	Id      string  `json:"id"`
+	Name    string  `json:"name,omitempty"`
+	Id      string  `json:"id,omitempty"`
 	Entries []Entry `json:"entries"`
 }
 
@@ -20,9 +20,9 @@ func (pl *Playlist) Equal(other Playlist) bool {
 
 type Entry struct {
 	Artist   string            `json:"artist"`
-	Album    string            `json:"album"`
 	Title    string            `json:"title"`
-	Duration float64           `json:"duration"`
+	Album    string            `json:"album,omitempty"`
+	Duration float64           `json:"duration,omitempty"`
 	Start    float64           `json:"start,omitempty"`
 	End      float64           `json:"end,omitempty"`
 	Ids      map[string]string `json:"ids,omitempty"`
